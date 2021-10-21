@@ -1,0 +1,8 @@
+# Set the namespace to be used 
+$NAMESPACE='ingress-basic'
+
+# Add the ingress-nginx repository
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+
+# Use Helm to deploy an NGINX ingress controller
+helm install nginx-ingress ingress-nginx/ingress-nginx --create-namespace --namespace $NAMESPACE --set controller.replicaCount=1 --set controller.admissionWebhooks.patch.nodeSelector."kubernetes\.io/os"=linux  --set defaultBackend.nodeSelector."kubernetes\.io/os"=linux
